@@ -1,0 +1,143 @@
+
+  <div class="card-body text-center" *ngIf="contentLoading">
+    <h3> <I>Yükleniyor...</I></h3>
+    <br>
+
+  <div class="spinner-grow text-primary " role="status">
+    <span class="sr-only"></span>
+  </div>
+  <div class="spinner-grow text-secondary" role="status">
+    <span class="sr-only"></span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only"></span>
+  </div>
+  <div class="spinner-grow text-danger" role="status">
+    <span class="sr-only"></span>
+  </div>
+  <div class="spinner-grow text-warning" role="status">
+    <span class="sr-only"></span>
+  </div>
+  <div class="spinner-grow text-info" role="status">
+    <span class="sr-only"></span>
+  </div>
+  <div class="spinner-grow text-dark" role="status">
+    <span class="sr-only"></span>
+  </div>
+  </div>
+  <div class="col-md-12 border border-left-0" style="background-color: white; opacity: 0.8; " >
+  <div *ngIf="!contentLoading">
+    <form *ngIf="info==null" (ngSubmit)="onSubmit()"  [formGroup]="sheepForm" style="padding: 5em; margin: 3em;" >
+
+    <div class="form-container">
+
+     <!--Barcode-->
+      <mat-form-field class="m-5">
+
+        <input formControlName="barcodeNo" matInput placeholder="Barkod No">
+
+        <mat-error *ngIf="getControls.barcodeNo.invalid">
+          {{myValidationService.GetValidationMessages(getControls.barcodeNo,"Barkod no")}}
+        </mat-error>
+
+      </mat-form-field>
+
+      <!--Group-->
+      <mat-form-field class="m-5">
+
+        <input type="text" placeholder="Grup" formControlName="group" matInput [matAutocomplete]="autoGroup">
+        <mat-error *ngIf="getControls.group.invalid">
+          {{myValidationService.GetValidationMessages(getControls.group,"Grup")}}
+        </mat-error>
+
+        <mat-autocomplete  #autoGroup="matAutocomplete">
+          <mat-option *ngFor="let item of groups" [value]="item">
+            {{item.id}}-{{item.name}}
+          </mat-option>
+
+        </mat-autocomplete>
+      </mat-form-field>
+
+        <!--Irk-->
+        <mat-form-field class="m-5">
+
+          <input type="text" placeholder="Irk" formControlName="race" matInput [matAutocomplete]="autoRace">
+
+          <mat-error *ngIf="getControls.race.invalid">
+            {{myValidationService.GetValidationMessages(getControls.race,"Irk")}}
+          </mat-error>
+
+          <mat-autocomplete #autoRace="matAutocomplete">
+            <mat-option *ngFor="let item of races" [value]="item">
+              {{item.id}}-{{item.name}}
+            </mat-option>
+          </mat-autocomplete>
+
+    </mat-form-field>
+
+
+      <!--Cinsiyet-->
+      <div class="m-5">
+        <label id="example-radio-group-label" style="  display: flex; flex-direction: column; margin: 15px 0;"  > Cinsiyet: </label>
+        <mat-error *ngIf="getControls.gender.invalid">
+          {{myValidationService.GetValidationMessages(getControls.gender,"Cinsiyet")}}
+        </mat-error>
+        <mat-radio-group  formControlName="gender"  aria-labelledby="example-radio-group-label"
+        class="example-radio-group" >
+          <mat-radio-button  class="example-radio-button"  >
+           Dişi
+          </mat-radio-button>
+
+          <mat-radio-button  class="example-radio-button"  >
+           Erkek
+         </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!--Doğum Tarihi-->
+
+        <mat-form-field class="m-5" appearance="fill">
+          <mat-label>Doğum Tarihi</mat-label>
+          <input placeholder="doğum tarihi giriniz" formControlName="dateOfBirth" matInput [matDatepicker]="picker">
+          <mat-error *ngIf="getControls.dateOfBirth.invalid">
+            {{myValidationService.GetValidationMessages(getControls.dateOfBirth,"Doğum tarihi")}}
+          </mat-error>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker="matDatepicker"></mat-datepicker>
+        </mat-form-field>
+
+         <!--Yaş-->
+      <mat-form-field class="m-5">
+        <input formControlName="age" matInput placeholder="Yaş">
+        <mat-error *ngIf="getControls.age.invalid">
+          {{myValidationService.GetValidationMessages(getControls.age,"Yaş")}}
+        </mat-error>
+
+      </mat-form-field>
+
+
+      <mat-form-field class="m-5">
+        <input formControlName="weight" matInput placeholder="Ağırlık">
+        <mat-error *ngIf="getControls.weight.invalid">
+          {{myValidationService.GetValidationMessages(getControls.weight,"Ağırlık")}}
+        </mat-error>
+
+      </mat-form-field>
+
+
+    <!-- Güncelle Btn-->
+      <button [disabled]="loading" mat-raised-button class="text-white mx-5" style="background-color: #174d9e;"> Güncelle
+      <i *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+      </i></button>
+
+    </div>
+
+
+  </form>
+    <div role="alert" *ngIf= "info!=null" class="alert alert-danger mt-3" >
+      {{info}}
+    </div>
+
+  </div>
+</div>
+

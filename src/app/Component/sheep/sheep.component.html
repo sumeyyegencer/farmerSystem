@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="mat-elevation-z8" style="background-color:beige; opacity: 0.8;">
+      <!-- <mat-form-field style="width: 100%;" appearance="standard">
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+        </mat-form-field> -->
+
+      <table class="mt-5" style="width: 100%;" mat-table [dataSource]="dataSource">
+
+        <!-- Barcode Column -->
+        <ng-container matColumnDef="barcodeNo">
+          <th mat-header-cell *matHeaderCellDef> <strong class="text-uppercase ;"> Barkod No</strong> </th>
+          <td mat-cell *matCellDef="let element"> {{element.barcodeNo}} </td>
+        </ng-container>
+
+
+
+        <!-- GroupName Column -->
+        <ng-container matColumnDef="group">
+          <th mat-header-cell *matHeaderCellDef><strong class="text-uppercase ;"> Grup</strong> </th>
+          <td mat-cell *matCellDef="let element"> {{element.group.name}} </td>
+        </ng-container>
+
+        <!-- RaceName Column -->
+        <ng-container matColumnDef="race">
+          <th mat-header-cell *matHeaderCellDef> <strong class="text-uppercase ;"> Irk</strong> </th>
+          <td mat-cell *matCellDef="let element"> {{element.race.name}} </td>
+        </ng-container>
+
+
+
+
+
+        <!-- Gender Column -->
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef> <strong class="text-uppercase ;">Cinsiyet</strong> </th>
+          <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+        </ng-container>
+
+        <!-- Birthday Column -->
+        <ng-container matColumnDef="dateOfBirth">
+          <th mat-header-cell *matHeaderCellDef> <strong class="text-uppercase ;"> Doğum tarihi</strong> </th>
+          <td mat-cell *matCellDef="let element"> {{element.dateOfBirth | date:'dd.MM.yyyy'}} </td>
+          <!--Pipeile tarih değişkeni formatlandı.-->
+        </ng-container>
+
+        <!-- Gender Column -->
+        <ng-container matColumnDef="age">
+          <th mat-header-cell *matHeaderCellDef> <strong class="text-uppercase ;">Yaş</strong> </th>
+          <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+        </ng-container>
+
+
+        <!-- Gender Column -->
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef> <strong class="text-uppercase ;">Ağırlık</strong> </th>
+          <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+        </ng-container>
+
+        <!--Update-Delete Btn-->
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> <strong class="text-uppercase ;">İşlemler</strong> </th>
+          <td mat-cell *matCellDef="let element">
+
+            <button [routerLink]="['/güncelle', element.id]" mat-raised-button class="text-white"
+              style="background-color: #3877d6;">Güncelle</button>
+            <button (click)="deleteSheep(element.id)" class="mx-3" mat-raised-button color="warn">Sil</button>
+
+          </td>
+
+
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[10,5, 20]" showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card border mt-5">
+      <div class="card-header " style="background-color: #faf9fa;"> <strong>Listeler</strong> </div>
+
+      <div class="card-body">
+        <div *ngIf="groups.length==0" class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+
+        <h3 *ngFor="let item of groups">
+          <strong>
+            <button (click)="getListByGroup(item.id)" class="btn btn-link text-dark"><i class="fas fa-angle-right"></i>
+              {{item.name}}</button>
+          </strong>
+        </h3>
+      </div>
+    </div>
+
+  </div>
+</div>
